@@ -120,8 +120,6 @@ function game() {
     console.log(shuffeled);
     console.log(printWordHyphens());
     console.log(lastElement.join(""));
-    console.log("ValidWords: " + validWords + " " + validWords.length);
-    console.log("GuessesCorrect: " + guessedCorrect + "" + guessedCorrect.length)
     
     let input = prompt("Please enter a single word guess")
     
