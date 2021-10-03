@@ -53,8 +53,10 @@ var validWords = [];
 function findValidWords() {
     for (var i = 0; i < subsets.length; i++) {
         for (var j = 0; j < dictionary.length; j++) {
-            if (subsets[i].join("") == dictionary[j]) {
+            if (!(contains(subsets[i].join(""), validWords))) {
+                if (subsets[i].join("") == dictionary[j]) {
                 validWords.push(subsets[i]);
+                }
             }
         }
     }
@@ -118,11 +120,14 @@ function game() {
     console.log("Welcome to Wordplay! Let's get started")
 
     while(tar) {
-
-    console.log("Here are your letters:\n")
+    
+    console.log("Here is your root word: " + root);
+    console.log("Here are your letters:\n");
     console.log(shuffeled);
-    console.log(printWordHyphens());
-    console.log(validWords);
+    //console.log(printWordHyphens());
+    console.log(printWords());
+    console.log("ValidWords: " + validWords + " " + validWords.length);
+    console.log("GuessesCorrect: " + guessedCorrect + "" + guessedCorrect.length)
     
     let input = prompt("Please enter a single word guess")
     
@@ -135,18 +140,18 @@ function game() {
         alert("Correct " + input + " is a word!");
         guessedCorrect.push(input.split(""));
         console.clear();
+        if (validWords.length == guessedCorrect.length) {
+            tar  = false;
+            console.log("Congrats you won!") //TODO: ADD A BETTER VICTORY MESSAGE.
+        }
     }
     else if (input == null) {
         tar = false;
-        console.clear();
+        //console.clear();
         console.log("Thanks for playing!");
         console.log(printWords());
         console.log("Here are your stats:\n" + guessNum + " total guesses | " + guessedCorrect.length + " correct guesses")
 
-    }
-    else if (validWords.length == guessedCorrect.length) {
-        tar  = false;
-        console.log("Congrats you won!") //TODO: ADD A BETTER VICTORY MESSAGE.
     }
     else if (input == "*") {
         shuffeled = shuffle(root);
