@@ -11,7 +11,6 @@ var root = randomWord(dictionary);
 function createRoot() {
     while(statement) {
         if (root.length == 6) {
-            console.log("random word is", root);
             statement = false;
             root.split(``);
 }
