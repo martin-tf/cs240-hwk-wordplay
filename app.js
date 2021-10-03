@@ -119,6 +119,8 @@ function game() {
     console.log(shuffeled);
     console.log(printWordHyphens());
     console.log(root);
+    console.log("validWords: " + validWords);
+    console.log("guessedCorrect" + guessedCorrect);
     
     let input = prompt("Please enter a single word guess")
     
@@ -155,7 +157,7 @@ function game() {
         guessedCorrect.push(input.split(""));
         console.clear();
         guessNum += 1;
-        if (validWords.length + 1 == guessedCorrect.length) {
+        if (validWords.length - 1 == guessedCorrect.length) {
             tar = false;
             console.log("%cCongrats you won!", "color: red; font-weight: bold; font-size: larger;");
             console.log("%cHere are your stats:\n" + guessNum + " total guesses | " + guessedCorrect.length + " correct guesses", "color: black; font-weight: bold;");
