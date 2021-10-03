@@ -1,3 +1,6 @@
+// TODO: STILL NEED TO ADD COMMENTS AND POSSIBLY CAHNGE THE WAY I GET VARIABLES.
+
+
 let statement = true;
 
 var guessedCorrect = [];
@@ -45,7 +48,6 @@ var listCombinations = function(x,letters,combo,allCombos) {
 
 
 var subsets = combine(root.split(``), 3);
-//console.log(subsets);
 
 var validWords = [];
 
@@ -104,13 +106,10 @@ function shuffle(word) {
     return sWord;
 }
 
-
 function game() {
     var guessNum = 0;
     var tar = true;
     var shuffeled = shuffle(root);
-    var lastElement = (validWords.pop());
-    guessedCorrect.push(lastElement);
     console.log("%cWelcome to Wordplay! Let's get started", "color: red; font-weight: bold; font-size: larger;");
 
     while(tar) {
@@ -119,7 +118,7 @@ function game() {
     console.log("%cHere are your letters:", "color: black; font-weight: bold;");
     console.log(shuffeled);
     console.log(printWordHyphens());
-    console.log(lastElement.join(""));
+    console.log(root);
     
     let input = prompt("Please enter a single word guess")
     
@@ -131,7 +130,6 @@ function game() {
         console.log("%cHere is the list of words made from the root word:", "color: black; font-weight: bold;");
         printWords();
         console.log("%cHere are your stats:\n" + guessNum + " total guesses | " + guessedCorrect.length + " correct guesses", "color: black; font-weight: bold;");
-
     }
     else if (input == root) {
         alert("You entered the root word.");
