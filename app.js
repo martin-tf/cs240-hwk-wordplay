@@ -22,7 +22,6 @@ function createRoot() {
 
 createRoot();
 
-
 var combine = function(a, min) {
 var listCombinations = function(x,letters,combo,allCombos) {
         if (x == 0) {
@@ -84,7 +83,7 @@ function printWordHyphens() {
             console.log(validWords[i].join(""));
         }
         else {
-            console.log(replaceLetters(validWords[i].join("")) + "\n");
+            console.log(replaceLetters(validWords[i].join("")));
         }
     }
 }
@@ -106,32 +105,51 @@ function shuffle(word) {
 }
 
 
-
-
-// TODO: ADD SOME OFF THAT CSS EDITED TEXT IN THE CONCOLE FROM THE VIDEO YOU FOUND (JAVASCRIPT PRO TIPS - CODE THIS, NOT THAT) (syntax: "'%c [some text]' , 'color: orange; ")
-// TODO: PROBABLY WILL NEED TO ADD AN IF STATEMENT THAT MAKES SURE THE CHOSEN WORD HAS A SUBSET OF WORDS THAT CAN BE SPELLED FROM IT AND THAT YOU DON'T GET REPEAT WORDS UNLESS ITS THE ROOT WORD
-
-
-
 function game() {
     var guessNum = 0;
     var tar = true;
     var shuffeled = shuffle(root);
-    console.log("Welcome to Wordplay! Let's get started")
+    var lastElement = (validWords.pop());
+    guessedCorrect.push(lastElement);
+    console.log("%cWelcome to Wordplay! Let's get started", "color: red; font-weight: bold; font-size: larger;");
 
     while(tar) {
     
-    console.log("Here is your root word: " + root);
-    console.log("Here are your letters:\n");
+    console.log("%cHere is your root word: " + root, "color: black; font-weight: bold;");
+    console.log("%cHere are your letters:", "color: black; font-weight: bold;");
     console.log(shuffeled);
-    //console.log(printWordHyphens());
-    console.log(printWords());
+    console.log(printWordHyphens());
+    console.log(lastElement.join(""));
     console.log("ValidWords: " + validWords + " " + validWords.length);
     console.log("GuessesCorrect: " + guessedCorrect + "" + guessedCorrect.length)
     
     let input = prompt("Please enter a single word guess")
     
-    if (contains(input, validWords)) {
+    if (input == null) {
+        tar = false;
+        console.clear();
+        console.log("%cThanks for playing!", "color: red; font-weight: bold; font-size: larger;");
+        console.log("%cThis was the root word: " + root, "color: black; font-weight: bold;");
+        console.log("%cHere is the list of words made from the root word:", "color: black; font-weight: bold;");
+        printWords();
+        console.log("%cHere are your stats:\n" + guessNum + " total guesses | " + guessedCorrect.length + " correct guesses", "color: black; font-weight: bold;");
+
+    }
+    else if (input == root) {
+        alert("You entered the root word.");
+        console.clear();
+    }
+    else if (input == "*") {
+        shuffeled = shuffle(root);
+        console.clear();
+        alert("Letters scrambled")
+    }
+    else if (input.length < 3){
+        alert("Word too short. Words have to be at least 3 letters long.");
+        console.clear();
+        continue;
+    }
+    else if (contains(input, validWords)) {
         if (contains(input, guessedCorrect)) {
             alert("The word " + input + " has already been found!");
             console.clear();
@@ -140,28 +158,21 @@ function game() {
         alert("Correct " + input + " is a word!");
         guessedCorrect.push(input.split(""));
         console.clear();
-        if (validWords.length == guessedCorrect.length) {
-            tar  = false;
-            console.log("Congrats you won!") //TODO: ADD A BETTER VICTORY MESSAGE.
+        guessNum += 1;
+        if (validWords.length + 1 == guessedCorrect.length) {
+            tar = false;
+            console.log("%cCongrats you won!", "color: red; font-weight: bold; font-size: larger;");
+            console.log("%cHere are your stats:\n" + guessNum + " total guesses | " + guessedCorrect.length + " correct guesses", "color: black; font-weight: bold;");
+            console.log("%cHere is the list of words:", "color: black; font-weight: bold;");
+            printWords();
+            console.log("%cThe root word was: " + root, "color: black; font-weight: bold;");
         }
-    }
-    else if (input == null) {
-        tar = false;
-        //console.clear();
-        console.log("Thanks for playing!");
-        console.log(printWords());
-        console.log("Here are your stats:\n" + guessNum + " total guesses | " + guessedCorrect.length + " correct guesses")
-
-    }
-    else if (input == "*") {
-        shuffeled = shuffle(root);
-        console.clear();
     }
     else {
         alert("Oops! " + input + " is not a valid word.")
         console.clear();
-    }
         guessNum += 1;
+    }
     }
 }
 
